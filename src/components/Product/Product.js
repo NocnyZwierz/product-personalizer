@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styles from './Product.module.scss';
 import clsx from 'clsx';
 import Button from '../Button/Button';
@@ -78,6 +79,17 @@ const Product = ({title, basePrice, colors, sizes, name}) => { // stan poczatkow
       </div>
     </article>
   )
+};
+
+Product.propTypes = {
+  title: PropTypes.string.isRequired, // title powinno być stringiem
+  basePrice: PropTypes.number.isRequired, // basePrice powinno być liczbą
+  colors: PropTypes.arrayOf(PropTypes.string).isRequired, // colors to tablica stringów
+  sizes: PropTypes.arrayOf(PropTypes.shape({ // sizes to tablica obiektów o określonej strukturze
+    name: PropTypes.string.isRequired, // name to string
+    additionalPrice: PropTypes.number.isRequired, // additionalPrice to liczba
+  })).isRequired,
+  name: PropTypes.string.isRequired, // name powinno być stringiem
 };
 
 export default Product;
