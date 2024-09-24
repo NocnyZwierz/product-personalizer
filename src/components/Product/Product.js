@@ -1,5 +1,5 @@
 import styles from './Product.module.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductImage from './ProductImage';
 import ProductForm from './ProductForm';
 
@@ -9,16 +9,16 @@ const Product = ({title, basePrice, colors, sizes, name}) => { // stan poczatkow
   const [currentColor, setCurrentColor] = useState(colors[0]);
   const [currentSize, setCurrentSize] = useState(sizes[0].name);
 
-  const getPrice = () => { // obliczanie ceny
+  const price = useMemo(() => {
     const selectedSize = sizes.find(size => size.name === currentSize);
     return basePrice + selectedSize.additionalPrice;
-  };;
+  }, [basePrice, currentSize, sizes]);
 
   const handleSubmit = (event) => { //wyświetlanie koszyka w konsoli
     event.preventDefault();
     console.log({
       title,
-      price: getPrice(),
+      price: price,
       selectedColor: currentColor,
       selectedSize: currentSize
     });
@@ -32,7 +32,7 @@ const Product = ({title, basePrice, colors, sizes, name}) => { // stan poczatkow
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
-          <span className={styles.price}>Price: {getPrice()} $</span>
+          <span className={styles.price}>Price: {price} $</span>
         </header>
         <ProductForm
           sizes={sizes}
@@ -42,7 +42,7 @@ const Product = ({title, basePrice, colors, sizes, name}) => { // stan poczatkow
           currentColor={currentColor}
           setCurrentColor={setCurrentColor}
           handleSubmit={handleSubmit}
-          getPrice={getPrice}
+          getPrice={price}
         />
       </div>
     </article>

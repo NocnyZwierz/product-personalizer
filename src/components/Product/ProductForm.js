@@ -4,7 +4,7 @@ import Button from '../Button/Button';
 import OptionColor from './OptionColor';
 import OptionSize from './OptionSize';
 
-const ProductForm = ({ sizes, colors, currentSize, setCurrentSize, currentColor, setCurrentColor, handleSubmit}) => {
+const ProductForm = ({ sizes, colors, currentSize, setCurrentSize, currentColor, setCurrentColor, handleSubmit, price}) => {
   return (
     <form onSubmit={handleSubmit}>
       <OptionSize
@@ -37,7 +37,7 @@ ProductForm.propTypes = {
   currentColor: PropTypes.string.isRequired,
   setCurrentColor: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  getPrice: PropTypes.func.isRequired,
+  price: PropTypes.number.isRequired,
 };
 
 export default ProductForm;
